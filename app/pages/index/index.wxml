@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view class="container">
+  <text>{{entity.phone}}</text>
+  <button bind:tap="onTap">获取头像昵称</button>
+</view>
