@@ -1,5 +1,9 @@
 import { connect } from "../../libs/dva-giga/connect.js";
 import model from "./model.js";
+// const logsmodel = require("/pages/model.js");
+// import logsmodel from "pages/model.js";
+
+// console.log(logsmodel);
 
 // addAsyncModel(index);
 // const { dispatch } = store;

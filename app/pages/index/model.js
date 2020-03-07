@@ -1,3 +1,5 @@
+import { rGetProjectList } from "../../netapi/index/index";
+
 const indexState = {
   entity: {
     phone: "13421307097"
@@ -11,7 +13,8 @@ export default {
 
   effects: {
     *rGet({ payload }, { call, put, select }) {
-      const response = yield call()
+      const response = yield call(rGetProjectList, payload);
+      console.log(response);
       // yield put({ type: "save", payload: { entity: { phone: "13425110801" } } });
     }
   },
