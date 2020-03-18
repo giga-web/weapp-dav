@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "pages-common": "/pages/common/index"
+  }
+}

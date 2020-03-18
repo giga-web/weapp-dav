@@ -1,4 +1,5 @@
 import { connect } from "../../libs/dva-giga/connect.js";
+import { store } from "../../libs/dva-giga/store.js";
 import model from "./model.js";
 // const logsmodel = require("/pages/model.js");
 // import logsmodel from "pages/model.js";
@@ -10,8 +11,12 @@ import model from "./model.js";
 
 Page(
   connect(model)({
-    data: {},
+    data: {
+      error: { code: -999, message: "服务错误" },
+      onRefresh: undefined
+    },
     onReceiveProps(nextData) {
+      console.log(nextData);
       const data = {};
       if (nextData.a !== this.data.a) {
         data = { ...data, a: nextData.a };
@@ -22,19 +27,23 @@ Page(
       this.setData(data);
     },
     onLoad(options) {
-      console.log(this);
-      console.log("onLoad", options, global);
+      // console.log(this);
+      // console.log("onLoad", options, global);
       this.dispatch({
         type: `${model.namespace}/rGet`,
         payload: {
           pageIndex: 0,
           pageSize: 10,
           city: "深圳市"
+        },
+        callback: () => {
+          console.log(this.data);
         }
       });
     },
     onReady() {
       console.log("onReady");
+      // this.setData({ onRefresh: this.onTap });
     },
     onShow() {
       console.log("onShow");
@@ -48,7 +57,21 @@ Page(
     onShareAppMessage() {},
 
     onTap() {
-      this.dispatch({ type: `${model.namespace}/rGet`, payload: {}, callback: () => {} });
+      this.dispatch({
+        type: `${model.namespace}/rGet`,
+        payload: {
+          pageIndex: 0,
+          pageSize: 10,
+          city: "深圳市"
+        },
+        callback: () => {
+          console.log(this.data);
+          console.log(store.getState());
+        }
+      });
+    },
+    onChange() {
+      this.setData({ source: [5, 6, 7, 8, 9] });
     }
   })
 );

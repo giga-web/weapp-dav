@@ -1,0 +1,9 @@
+<view class="error-wrap">
+  <slot name="error"></slot>
+  <image
+    class="error-image"
+    src="http://icons.iconarchive.com/icons/papirus-team/papirus-status/256/dialog-error-icon.png"
+  />
+  <text class="error-tip">{{error.message}}</text>
+  <button class="error-btn" type="primary" bindtap="onRefresh">点击重新请求</button>
+</view>

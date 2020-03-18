@@ -94,13 +94,13 @@ const getReducer = function getReducer(model) {
       return (state, action) => {
         const { type } = action;
         // invariant(type, 'dispatch: action should be a plain Object with type');
+        // (actionType === type || (actionType === '@@dva/UPDATE' && type === '@@DVA_LOADING/SHOW') || (actionType === '@@dva/UPDATE' && type === '@@DVA_LOADING/HIDE'))
         if (actionType === type) {
           /*
           return reducers[type](state, action);
           */
-
           // 与小程序集成
-          debugger;
+          // debugger;
           const newState = reducers[type](state, action);
           if (type.indexOf('@@') === -1) {
             try {

@@ -2,9 +2,9 @@ import { store, addAsyncModel } from "./store.js";
 const { dispatch } = store;
 
 function autoReceiveProps(namespace, nextData) {
-  console.log(this);
+  // console.log(this);
   // debugger;
-  console.log(namespace);
+  // console.log(namespace);
   console.log(nextData);
 
   let data = {};

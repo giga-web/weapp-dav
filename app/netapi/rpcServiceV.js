@@ -3,8 +3,7 @@ import { KEY_USER_SETTING } from "../Constant";
 import { URL_WX_LOGIN } from "./RestApiUrls";
 
 function request(options) {
-  debugger
-  return wxp
+  return wx.wxp
     .request(options)
     .then(({ data }) => {
       return data;
@@ -29,10 +28,8 @@ function requestV(options) {
 
   return new Promise((resolve, reject) => {
     if (token) {
-      debugger // TODO: cz
       resolve(request(options));
     } else {
-      debugger
       reject();
     }
   })
@@ -46,23 +43,6 @@ function requestV(options) {
     })
     .catch(error => {
       console.log(error);
-      // 登录
-      /*
-      return wx.login()
-        .then(res => {
-          const { defaultCity = '', currentCity, locationCity } = syncVarIterator.getter(wx.getStorageSync(KEY_USER_SETTING), "city") || {};
-          const city = currentCity || locationCity || defaultCity;
-
-          return request({
-            url: `${URL_WX_LOGIN}?city=${city}&code=${res.code}`
-          });
-        })
-        .then(res => {
-          console.log(res);
-          options.header["HOS-USER-TICKET"] = res.data.token;
-          return request(options);
-        });
-        */
     })
     .then(res => {
       return res;
