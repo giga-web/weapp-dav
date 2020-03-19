@@ -1,23 +1,38 @@
 import { store, addAsyncModel } from "./store.js";
 const { dispatch } = store;
 
-function autoReceiveProps(namespace, nextData) {
+function autoReceiveProps(namespace, state) {
   // console.log(this);
   // debugger;
-  // console.log(namespace);
-  console.log(nextData);
+  // console.log(namespace);rMain
+  // console.log(state);
+
+  const currentData = state[namespace];
 
   let data = {};
-  for (const key in nextData) {
-    if (nextData.hasOwnProperty(key)) {
-      if (nextData[key] !== this.data[key]) {
-        data = { ...data, [key]: nextData[key] };
+  for (const key in currentData) {
+    if (currentData.hasOwnProperty(key)) {
+      if (currentData[key] !== this.data[key]) {
+        data = { ...data, [key]: currentData[key] };
       }
     }
   }
+
+  // 主请求的加载状态
+  try {
+    const loading = state.loading.effects[namespace + '/rMain'];
+    if (this.data.loading !== loading) {
+      data.loading = loading;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+
+
   this.setData(data);
 
-  this.onReceiveProps && this.onReceiveProps(data);
+  this.onReceiveProps && this.onReceiveProps(state);
 }
 
 export const connect = model => {
@@ -28,15 +43,23 @@ export const connect = model => {
 
       onLoad(options) {
         addAsyncModel(model);
-        global._event_.on(model.namespace, autoReceiveProps.bind(this));
-        autoReceiveProps.call(this, model.namespace, model.state);
+        this.setData(model.state);
         pageObject.onLoad.call(this, options);
       },
       onUnload() {
         dispatch({ type: `${model.namespace}/clean` });
-        global._event_.removeListener(model.namespace, autoReceiveProps.bind(this));
         pageObject.onUnload.call(this);
-      }
+      },
+      onShow() {
+        // console.log("onShow");
+        global.namespaces[model.namespace] = autoReceiveProps.bind(this, model.namespace);
+        pageObject.onShow.call(this);
+      },
+      onHide() {
+        // console.log("onHide");
+        delete global.namespaces[model.namespace];
+        pageObject.onHide.call(this);
+      },
     };
   };
 };

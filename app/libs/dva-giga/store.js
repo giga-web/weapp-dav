@@ -19,7 +19,9 @@ import Loading from './loading.js';
 
 global._event_ = new EventEmitter();
 
-const { createStore, applyMiddleware, compose, combineReducers } = redux;
+global.namespaces = {};
+
+const { createStore, applyMiddleware, compose, combineReducers, bindActionCreators } = redux;
 const { observableDiff } = deepDiff;
 
 const createSagaMiddleware = saga.default;
@@ -94,33 +96,8 @@ const getReducer = function getReducer(model) {
       return (state, action) => {
         const { type } = action;
         // invariant(type, 'dispatch: action should be a plain Object with type');
-        // (actionType === type || (actionType === '@@dva/UPDATE' && type === '@@DVA_LOADING/SHOW') || (actionType === '@@dva/UPDATE' && type === '@@DVA_LOADING/HIDE'))
         if (actionType === type) {
-          /*
           return reducers[type](state, action);
-          */
-          // 与小程序集成
-          // debugger;
-          const newState = reducers[type](state, action);
-          if (type.indexOf('@@') === -1) {
-            try {
-              // const types = type.split('/', 2);
-              const diff = {};
-              observableDiff(state, newState, function(d) {
-                if (d.path && d.path.length > 0) {
-                  diff[d.path[0]] = newState[d.path[0]]
-                }
-              })
-              // global._event_.emit(types[0], types[0], diff);
-
-              // page/index/save -> page/index
-              global._event_.emit(type.replace(/(.*)+\/(.*)/, '$1'), type, diff);
-            } catch (error) {
-              console.log(error);
-            }
-          }
-          return newState;
-          // 与小程序集成
         }
         return state;
       };
@@ -535,6 +512,40 @@ for (const model of modelsEx) {
 
 // 扩展 store - 用于保存异步 reduxs
 store.asyncReducers = {};
+
+// 订阅
+store.subscribe(() => {
+  const state = store.getState();
+
+  Object.values(global.namespaces).forEach(callback => {
+    callback(state);
+  });
+
+  /*
+  // 与小程序集成
+  // debugger;
+  const newState = reducers[type](state, action);
+  if (type.indexOf('@@') === -1) {
+    try {
+      // const types = type.split('/', 2);
+      const diff = {};
+      observableDiff(state, newState, function(d) {
+        if (d.path && d.path.length > 0) {
+          diff[d.path[0]] = newState[d.path[0]]
+        }
+      })
+      // global._event_.emit(types[0], types[0], diff);
+
+      // page/index/save -> page/index
+      global._event_.emit(type.replace(/(.*)+\/(.*)/, '$1'), type, diff);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return newState;
+  // 与小程序集成
+  */
+})
 
 export default {
   store,

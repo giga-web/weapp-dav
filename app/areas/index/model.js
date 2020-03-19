@@ -12,9 +12,9 @@ export default {
   state: indexState,
 
   effects: {
-    *rGet({ payload, callback }, { call, put, select }) {
+    *rMain({ payload, callback }, { call, put, select }) {
       const response = yield call(rGetProjectList, payload);
-      if (response) {
+      if (response.code !== 0) {
         yield put({ type: "save", payload: { entity: response } });
       }
       callback && callback(response);

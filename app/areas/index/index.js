@@ -12,11 +12,10 @@ import model from "./model.js";
 Page(
   connect(model)({
     data: {
-      error: { code: -999, message: "服务错误" },
+      // error: { code: -999, message: "服务错误" },
       onRefresh: undefined
     },
     onReceiveProps(nextData) {
-      console.log(nextData);
       const data = {};
       if (nextData.a !== this.data.a) {
         data = { ...data, a: nextData.a };
@@ -30,7 +29,7 @@ Page(
       // console.log(this);
       // console.log("onLoad", options, global);
       this.dispatch({
-        type: `${model.namespace}/rGet`,
+        type: `${model.namespace}/rMain`,
         payload: {
           pageIndex: 0,
           pageSize: 10,
@@ -58,7 +57,7 @@ Page(
 
     onTap() {
       this.dispatch({
-        type: `${model.namespace}/rGet`,
+        type: `${model.namespace}/rMain`,
         payload: {
           pageIndex: 0,
           pageSize: 10,
