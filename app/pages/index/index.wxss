@@ -1,0 +1,4 @@
+/**index.wxss**/
+.white-space {
+  padding: 10px;
+}

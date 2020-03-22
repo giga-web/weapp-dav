@@ -2,6 +2,6 @@
   "component": true,
   "usingComponents": {
     "vant-loading": "@vant/weapp/loading",
-    "giga-error": "/components/error/index"
+    "giga-error": "/layer/components/error/index"
   }
 }

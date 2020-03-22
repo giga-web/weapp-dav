@@ -71,7 +71,8 @@ Page(
     },
     onChange() {
       this.setData({ source: [5, 6, 7, 8, 9] });
-    }
+    },
+
   })
 );
 

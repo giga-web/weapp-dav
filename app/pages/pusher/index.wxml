@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<pages-common loading="{{false}}" error="{{error}}" onRefresh="{{onRefresh}}">
+  <view slot="error">111111</view>
+  <view slot="main">
+    <view id='video-box'>
+      <live-pusher
+        class="pusher"
+        id="pusher"
+        mode="RTC"
+        url="rtmp://87414.livepush.myqcloud.com/live/1000?txSecret=3871abe99948d1fbb5386e3490554eb9&txTime=5E8368FF"
+        autopush='true'
+        bindstatechange="onPush">
+      </live-pusher>
+    </view>
+  </view>
+</pages-common>

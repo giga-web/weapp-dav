@@ -1,6 +1,6 @@
 // https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html [生命周期 2020-03-16]
 // components/error.js
-import { connect } from "../../libs/dva-giga/connect.js";
+import { connect } from "../../../libs/dva-giga/connect.js";
 
 Component(
   connect()({

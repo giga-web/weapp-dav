@@ -1,7 +1,9 @@
 {
   "pages": [
-    "areas/index/index",
-    "areas/logs/logs"
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/pusher/index",
+    "pages/player/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

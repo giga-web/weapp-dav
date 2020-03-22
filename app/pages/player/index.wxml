@@ -1,0 +1,17 @@
+<!--index.wxml-->
+<pages-common loading="{{false}}" error="{{error}}" onRefresh="{{onRefresh}}">
+  <view slot="error">111111</view>
+  <view slot="main">
+    <view id='video-box'>
+      <live-player
+        class="player"
+        src="http://play.kaisasso.com/live/1000.flv"
+        mode="RTC"
+        autoplay
+        bindstatechange="statechange"
+        binderror="error"
+        object-fit="fillCrop"
+      />
+    </view>
+  </view>
+</pages-common>

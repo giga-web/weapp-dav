@@ -1,0 +1,27 @@
+<!--index.wxml-->
+<pages-common loading="{{false}}" error="{{error}}" onRefresh="{{onRefresh}}">
+
+  <view slot="error">111111</view>
+
+  <view slot="main">
+
+    <!-- <view class="container">
+      <text>{{entity.phone}}</text>
+      <button bind:tap="onTap">获取头像昵称</button>
+    </view>
+
+    <view class="white-space">
+      <button bind:tap="onChange">change</button>
+    </view> -->
+
+    <view class="white-space">
+      <button><navigator url="/pages/player/index">观看直播</navigator></button>
+    </view>
+
+    <view class="white-space">
+      <button><navigator url="/pages/pusher/index">开始直播</navigator></button>
+    </view>
+
+  </view>
+
+</pages-common>
