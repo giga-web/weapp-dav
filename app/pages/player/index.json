@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "pages-common": "/layer/pages/common/index"
+    "layer-page-common": "/layer/page/common/index"
   }
 }

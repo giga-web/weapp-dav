@@ -1,0 +1,10 @@
+<view>
+  <!-- loading 应该在 error 上方，否则出错后刷新不会出现 loading -->
+  <view class="loading-box" wx:if="{{loading}}">
+    <vant-loading color="#1989fa" />
+  </view>
+
+  <layer-component-error wx:elif="{{error && error.code !== 0}}" error="{{error}}" actions="{{actions}}" />
+
+  <slot name="main" wx:else></slot>
+</view>

@@ -1,0 +1,23 @@
+<view class="error-wrap">
+
+  <image class="error-image" src="http://icons.iconarchive.com/icons/papirus-team/papirus-status/256/dialog-error-icon.png" />
+
+  <text class="error-tip">{{error.data}}</text>
+  
+  <view class="error-actions">
+
+    <view class="error-action-item">
+      <button wx:if="{{actions.back}}" class="error-btn" type="default" bindtap="onBack">返回</button>
+    </view>
+
+    <view class="error-action-item">
+      <button wx:if="{{actions.refresh}}" class="error-btn" type="primary" bindtap="onRefresh">刷新</button>
+    </view>
+
+    <view class="error-action-item">
+      <button wx:if="{{actions.index}}" class="error-btn" type="warn" bindtap="onIndex">首页</button>
+    </view>
+
+  </view>
+
+</view>

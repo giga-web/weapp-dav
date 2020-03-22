@@ -4,9 +4,11 @@ import { connect } from "../../../libs/dva-giga/connect.js";
 
 Component(
   connect()({
+
     options: {
       multipleSlots: true // 在组件定义时的选项中启用多slot支持
     },
+
     /**
      * 组件的属性列表
      */
@@ -19,9 +21,9 @@ Component(
         type: Object,
         value: { code: 0, message: "" }
       },
-      onRefresh: {
-        type: Function,
-        value: undefined
+      actions: {
+        type: Object,
+        value: {}
       }
     },
 
@@ -49,6 +51,7 @@ Component(
       // 每当组件方法抛出错误时执行
       error(error) {}
     },
+
     pageLifetimes: {
       // 组件所在的页面被展示时执行
       show() {},
@@ -57,6 +60,8 @@ Component(
       // 组件所在的页面尺寸变化时执行
       resize(size) {}
     },
+
+
     /**
      * 组件的方法列表
      */

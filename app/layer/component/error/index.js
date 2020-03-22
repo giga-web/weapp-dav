@@ -1,9 +1,11 @@
 // https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html [生命周期 2020-03-16]
 // components/error.js
 Component({
+
   options: {
     multipleSlots: true // 在组件定义时的选项中启用多slot支持
   },
+
   /**
    * 组件的属性列表
    */
@@ -11,9 +13,9 @@ Component({
     error: {
       type: Object
     },
-    onRefresh: {
-      type: Function,
-      value: undefined
+    actions: {
+      type: Object,
+      value: {}
     }
   },
 
@@ -41,6 +43,7 @@ Component({
     // 每当组件方法抛出错误时执行
     error(error) {}
   },
+
   pageLifetimes: {
     // 组件所在的页面被展示时执行
     show() {},
@@ -49,16 +52,43 @@ Component({
     // 组件所在的页面尺寸变化时执行
     resize(size) {}
   },
+
   /**
    * 组件的方法列表
    */
   methods: {
+    // 刷新
     onRefresh() {
-      // this.data.onRefresh && this.data.onRefresh();
-
-      const pages =  getCurrentPages();
+      const pages = getCurrentPages();
       const page = pages[pages.length - 1];
+
       page.onLoad();
+    },
+
+    // 返回
+    onBack() {
+      const pages = getCurrentPages();
+
+      // 只有一页时，能返回
+      if (pages.length <= 1) { return; }
+
+      wx.navigateBack();
+    },
+
+    // 回到首页
+    onIndex() {
+      const pages = getCurrentPages();
+      const page = pages[pages.length - 1];
+
+      // 在首页时，不跳转
+      if (page.route === 'pages/index/index') { return; }
+
+      // 首页不存在时，不跳转
+      // TODO
+
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
     }
   }
 });

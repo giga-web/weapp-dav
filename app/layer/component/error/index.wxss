@@ -1,0 +1,47 @@
+/* components/error.wxss */
+
+.error-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.error-actions {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  padding: 30px 8px;
+
+  width: 100%;
+}
+
+.error-action-item {
+  -webkit-flex: 1px;
+  -moz-flex: 1px;
+  -ms-flex: 1px;
+  -o-flex: 1px;
+  flex: 1px;
+
+  padding: 0 4px;
+}
+
+.error-action-item button {
+  width: 100%;
+}
+
+.error-btn {
+  
+}

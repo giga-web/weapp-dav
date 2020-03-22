@@ -1,7 +1,8 @@
 <!--index.wxml-->
-<pages-common loading="{{false}}" error="{{error}}" onRefresh="{{onRefresh}}">
-  <view slot="error">111111</view>
+<layer-page-common loading="{{loading}}" error="{{error}}" actions="{{erroractions}}">
+
   <view slot="main">
+
     <view id='video-box'>
       <live-pusher
         class="pusher"
@@ -12,5 +13,7 @@
         bindstatechange="onPush">
       </live-pusher>
     </view>
+
   </view>
-</pages-common>
+
+</layer-page-common>

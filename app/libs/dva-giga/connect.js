@@ -1,12 +1,8 @@
 import { store, addAsyncModel } from "./store.js";
+
 const { dispatch } = store;
 
 function autoReceiveProps(namespace, state) {
-  // console.log(this);
-  // debugger;
-  // console.log(namespace);rMain
-  // console.log(state);
-
   const currentData = state[namespace];
 
   let data = {};
@@ -23,12 +19,11 @@ function autoReceiveProps(namespace, state) {
     const loading = state.loading.effects[namespace + '/rMain'];
     if (this.data.loading !== loading) {
       data.loading = loading;
+      // console.log(loading);
     }
   } catch (err) {
     console.log(err);
   }
-
-
 
   this.setData(data);
 
@@ -38,7 +33,9 @@ function autoReceiveProps(namespace, state) {
 export const connect = model => {
   return pageObject => {
     return {
+
       ...pageObject,
+
       dispatch,
 
       onLoad(options) {
@@ -46,20 +43,24 @@ export const connect = model => {
         this.setData(model.state);
         pageObject.onLoad.call(this, options);
       },
+
       onUnload() {
         dispatch({ type: `${model.namespace}/clean` });
         pageObject.onUnload.call(this);
       },
+
       onShow() {
         // console.log("onShow");
         global.namespaces[model.namespace] = autoReceiveProps.bind(this, model.namespace);
         pageObject.onShow.call(this);
       },
+
       onHide() {
         // console.log("onHide");
         delete global.namespaces[model.namespace];
         pageObject.onHide.call(this);
       },
+
     };
   };
 };

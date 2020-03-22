@@ -1,5 +1,5 @@
 import queryString from "query-string";
-import { KEY_USER_SETTING, KEY_USER_INFO, SIGNATURE_URL } from "../Constant";
+import { KEY_USER_SETTING, KEY_USER_INFO, SIGNATURE_URL } from "../constants/customer";
 
 // ============================================================
 // 基础

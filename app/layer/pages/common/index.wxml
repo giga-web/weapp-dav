@@ -1,7 +1,0 @@
-<view>
-  <vant-loading wx:if="{{loading && !error}}" />
-  <giga-error wx:if="{{error && error.code !== 0}}" error="{{error}}" onRefresh="{{onRefresh}}">
-    <slot name="error" slot="error"></slot>
-  </giga-error>
-  <slot name="main" wx:else></slot>
-</view>
