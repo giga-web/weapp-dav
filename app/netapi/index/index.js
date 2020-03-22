@@ -6,5 +6,7 @@ import { URL_GET_PROJECT_LIST } from "../RestApiUrls";
 
 /**创建诚意登记 */
 export async function rGetProjectList(params) {
-  return await rpcService.rGet(`${URL_GET_PROJECT_LIST}${checkParams(params, {}, true)}`);
+  const res = await rpcService.rGet(`${URL_GET_PROJECT_LIST}${checkParams(params, {}, true)}`);
+  debugger;
+  return res;
 }

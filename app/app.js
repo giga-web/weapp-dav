@@ -14,7 +14,7 @@ wx.wxp = wxp;
 App({
   onLaunch(options) {
     // 设置用户默认设置
-    if (localStorageV.getItem(KEY_USER_SETTING) === null) {
+    if (Boolean(localStorageV.getItem(KEY_USER_SETTING)) === false) {
       localStorageV.setItem(KEY_USER_SETTING, USER_DEFAULT_SETTING);
     }
   }

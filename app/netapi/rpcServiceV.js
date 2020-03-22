@@ -14,13 +14,14 @@ import { KEY_USER_SETTING } from "../constants/customer";
 
 // 白名单
 const whiteList = [
-  '/icbp-php-web/auth/login',
+  '/hos-portal/api/project/list',
 ];
 
 // 错误对应的意思
 const errorMap = {
   LoginCancel: '登录取消',
   LoginError: '登录错误',
+  LoginFail: '登录错误',
   UrlError: '地址错误',
   ServerError: '服务错误',
   OtherError: '其他错误',
@@ -44,11 +45,16 @@ function handleCatch(tag, options, error) {
   if (error === 'NoToken' || error === 'InvalidToken') {
     // debugger;
 
-    // 需要登录
-    return loginModal(options);
+    // 静默登录
+    return loginSilent(options);
+
+  } else if (error === 'LoginFail') {
+    debugger;
+
+    // TODO：登录失败返回特殊的code
 
   } else {
-    // debugger;
+    debugger;
 
     // 返回模拟响应
     return MockResponse(error);
@@ -56,16 +62,174 @@ function handleCatch(tag, options, error) {
 
 }
 
+// 静默登录
+function loginSilent(options) {
+  return wx.wxp.login()
+    .then(res => {
+      debugger;
+
+      const { code, errMsg } = res;
+
+      if (errMsg !== 'login:ok') {
+        throw 'LoginError';
+      }
+
+      return login(code)
+        .then(token => {
+          debugger;
+
+          // 设置 token 以重新发起请求
+          options.header['HOS-USER-TICKET'] = token;
+
+          // 重新发起请求
+          return request(options);
+        });
+    })
+    .catch(error => {
+      debugger;
+
+      // 这个 catch 存在的原因是，当调用接口失败会直接进入这里。并且根据 error 的数据类型，统一返回字符串形式的错误
+
+      if (typeof error === 'string') {
+        // debugger;
+
+        // 1. 接收上一个 then 的 throw 值，继续 throw
+        throw error;
+
+      } else {
+        // debugger;
+
+        // 2. 暂时不知道什么时候会报错
+        throw 'LoginError';
+      }
+    });
+
+    /*
+    .then(res => {
+      const { defaultCity = '', currentCity, locationCity } = syncVarIterator.getter(wx.getStorageSync(KEY_USER_SETTING), "city") || {};
+      const city = currentCity || locationCity || defaultCity;
+
+      return request({
+        url: `${URL_WX_LOGIN}?city=${city}&code=${res.code}`
+      });
+    })
+    .then(res => {
+      console.log(res);
+      options.header["HOS-USER-TICKET"] = res.data.token;
+      return request(options);
+    });
+    */
+}
+
+// 登录
+function login(code) {
+  // 城市
+  const { currentCity, locationCity, defaultCity } = syncVarIterator.getter(localStorageV.getItem(KEY_USER_SETTING), 'city');
+  const city = currentCity || locationCity || defaultCity;
+  
+  // 登录请求的参数
+  const options = {
+    url: `${URL_WX_LOGIN}?city=${city}&code=${code}`,
+    method: 'GET',
+  };
+
+  // 发送登录请求
+  return request(options)
+    .then(res => {
+      debugger;
+
+      // 登录请求响应成功
+      // TODO: 后台登录失败不应该返回 code = 0
+      if (res.code === 0 && res.data.token) {
+        // debugger;
+
+        // 登录成功
+        const token = res.data.token;
+
+        // 保存到本地存储
+        localStorageV.setItem(KEY_USER_SETTING, Object.assign({ ...localStorageV.getItem(KEY_USER_SETTING) }, { token }));
+
+        return token;
+
+      } else {
+        debugger;
+
+        throw 'LoginFail';
+      }
+
+    })
+    .catch((error) => {
+      debugger;
+
+      // 这个 catch 存在的原因是，当网络错误或请求被阻止会直接进入这里。并且根据 error 的数据类型，统一返回字符串形式的错误
+
+      if (typeof error === 'string') {
+        debugger;
+
+        // 1. 接收上一个 then 的 throw 值，继续 throw
+        throw error;
+
+      } else {
+        debugger;
+
+        // 2. 如果上一个 then 报错，继续 throw
+        throw 'LoginFail';
+      }
+    });
+}
+
 // 请求封装
 function request(options) {
   return wx.wxp.request(options)
-    .then(({ data }) => {
-      return data;
+    .then(response => {
+      debugger;
+
+      if ([200].includes(response.statusCode)) {
+        debugger;
+
+        // 响应成功直接返回，不做统一提示
+        // 可能的去处：
+        // 1. 正常请求，直接返回到请求发起的地方
+        // 2. 登录请求，去到发送登录请求的地方
+        return response.data;
+
+      } else if ([401, 403].includes(response.statusCode)) {
+        debugger;
+
+        throw 'InvalidToken';
+
+      } else if ([404].includes(response.statusCode)) {
+        debugger;
+        throw 'UrlError';
+
+      } else if ([500].includes(response.statusCode)) {
+        debugger;
+        throw 'ServerError';
+
+      } else {
+        debugger;
+        throw 'OtherError';
+      }
     })
-    .catch(e => {
-      // 因网络等原因请求失败提示
-      console.log("网络问题", e);
-    });
+    .catch(error => {
+      debugger;
+
+      // 这个 catch 存在的原因是，当网络错误或请求被阻止会直接进入这里。并且根据 error 的数据类型，统一返回字符串形式的错误
+
+      if (typeof error === 'string') {
+        debugger;
+
+        // 1. 接收上一个 then 的 throw 值，继续 throw
+        throw error;
+
+      } else {
+        debugger;
+
+        // 2. 网络错误或请求被阻止，如跨域
+        throw error.message;
+      }
+
+    })
 }
 
 // 请求入口
@@ -95,11 +259,21 @@ function requestEntry(options) {
 
   return new Promise((resolve, reject) => {
     if (token) {
+      // debugger;
+
+      // 当有 token 时，直接发起请求，过程中可能会有 token 失效的问题，这种情况将根据请求的结果进行处理
       resolve(request(options));
+
     } else {
-      reject();
+      // debugger;
+
+      // 当无 token 时，进入 catch01 处，这也是 catch01 存在的原因
+      reject('NoToken');
     }
   })
+    .catch(handleCatch.bind(null, 'catch01', options))
+    .catch(handleCatch.bind(null, 'catch02', options));
+  /*
     .then(res => {
       if ([404].includes(res.status)) {
         throw "UrlError";
@@ -119,6 +293,7 @@ function requestEntry(options) {
     .then(res => {
       return res;
     });
+    */
 }
 
 const rpcService = {
