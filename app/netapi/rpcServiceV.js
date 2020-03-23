@@ -22,9 +22,6 @@ let logining = false;
 // 登录中等待的请求
 const loginingWait = [];
 
-// TODO: 等待返回的请求
-const responseWait = [];
-
 // 错误对应的意思
 const errorMap = {
   LoginCancel: '登录取消',

@@ -6,7 +6,7 @@ import { URL_RECOMMEND_LIST, URL_GET_PROJECT_LIST, URL_PAYORDER_LIST } from "../
 
 // 楼盘列表
 export async function rGetProjectList(params) {
-  console.log('rGetProjectList');
+  // console.log('rGetProjectList');
   const res = await rpcService.rGet(`${URL_GET_PROJECT_LIST}${checkParams(params, {}, true)}`);
   // debugger;
   return res;
@@ -14,7 +14,7 @@ export async function rGetProjectList(params) {
 
 // banner列表
 export async function rGetRecommendList(params) {
-  console.log('rGetRecommendList');
+  // console.log('rGetRecommendList');
   const res = await rpcService.rGet(`${URL_RECOMMEND_LIST}${checkParams(params, {}, true)}`);
   // debugger;
   return res;
@@ -22,7 +22,7 @@ export async function rGetRecommendList(params) {
 
 // 订单列表
 export async function rGetPayOrderList(params) {
-  console.log('rGetPayOrderList');
+  // console.log('rGetPayOrderList');
   const res = await rpcService.rGet(`${URL_PAYORDER_LIST}${checkParams(params, {}, true)}`);
   // debugger;
   return res;
