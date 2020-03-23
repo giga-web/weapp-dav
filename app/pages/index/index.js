@@ -14,6 +14,30 @@ function initData () {
       // console.log(this.data);
     }
   });
+
+  // this.dispatch({
+  //   type: `${model.namespace}/rGet`,
+  //   payload: {
+  //     pageIndex: 0,
+  //     pageSize: 6,
+  //     recommendChannel: 1,
+  //     city: "深圳市"
+  //   },
+  //   callback: () => {
+  //     // console.log(this.data);
+  //   }
+  // });
+
+  this.dispatch({
+    type: `${model.namespace}/rGetOrder`,
+    payload: {
+      pageIndex: 0,
+      pageSize: 20,
+    },
+    callback: () => {
+      // console.log(this.data);
+    }
+  });
 }
 
 Page(
