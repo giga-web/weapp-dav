@@ -1,0 +1,13 @@
+<view class="error-wrap">
+  
+  <!-- 获取前 -->
+  <view>
+    <button bindtap="onRefuseLogin">拒绝登录</button>
+    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">一键登录</button>
+  </view>
+
+  <!-- 允许 -->
+
+  <!-- 拒绝 -->
+
+</view>

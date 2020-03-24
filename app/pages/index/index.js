@@ -62,7 +62,36 @@ Page(
     },
 
     onLoad(options) {
-      wx.showNavigationBarLoading();
+      // wx.showNavigationBarLoading();
+
+      /*
+      wx.getUserInfo({
+        success(res) {
+          console.log('success', res);
+        },
+        fail(res) {
+          console.log('fail', res);
+        },
+        complete(res) {
+          console.log('complete', res);
+        }
+      });
+      */
+
+      /*
+      wx.authorize({
+        scope: 'scope.userInfo',
+        success(res) {
+          console.log('success', res);
+        },
+        fail(res) {
+          console.log('fail', res);
+        },
+        complete(res) {
+          console.log('complete', res);
+        }
+      });
+      */
     },
 
     onReady() {

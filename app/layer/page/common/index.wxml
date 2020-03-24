@@ -4,7 +4,9 @@
     <vant-loading color="#1989fa" />
   </view>
 
-  <layer-component-error wx:elif="{{error && error.code !== 0}}" error="{{error}}" actions="{{actions}}" />
+  <layer-component-error wx:elif="{{error && error.code !== 0 && error.code !== -9999}}" error="{{error}}" actions="{{actions}}" />
+
+  <layer-component-getuserinfo wx:elif="{{error && error.code === -9999}}" />
 
   <slot name="main" wx:else></slot>
 </view>

@@ -134,7 +134,7 @@ function login(code) {
   
   // 登录请求的参数
   const options = {
-    url: `${URL_WX_LOGIN}?city=${city}&code=${code}`,
+    url: `${URL_WX_LOGIN}?city=${city}&code=${code}333`,
     method: 'GET',
   };
 
