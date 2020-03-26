@@ -15,6 +15,42 @@ function initData () {
     }
   });
 
+  this.dispatch({
+    type: `${model.namespace}/rMain`,
+    payload: {
+      pageIndex: 0,
+      pageSize: 20,
+      city: "深圳市"
+    },
+    callback: () => {
+      // console.log(this.data);
+    }
+  });
+
+  this.dispatch({
+    type: `${model.namespace}/rMain`,
+    payload: {
+      pageIndex: 0,
+      pageSize: 30,
+      city: "深圳市"
+    },
+    callback: () => {
+      // console.log(this.data);
+    }
+  });
+
+  this.dispatch({
+    type: `${model.namespace}/rMain`,
+    payload: {
+      pageIndex: 0,
+      pageSize: 40,
+      city: "深圳市"
+    },
+    callback: () => {
+      // console.log(this.data);
+    }
+  });
+
   /*  
   this.dispatch({
     type: `${model.namespace}/rGet`,
@@ -64,7 +100,7 @@ Page(
     onLoad(options) {
       // wx.showNavigationBarLoading();
 
-      /**/
+      /*
       wx.getUserInfo({
         withCredentials: true,
         lang: 'zh_CN',
@@ -86,7 +122,7 @@ Page(
           console.log('complete', res);
         }
       });
-      /**/
+      */
 
       /*
       wx.authorize({
