@@ -32,7 +32,7 @@ function autoReceiveProps(namespace, state) {
   }
 
   // 设置 loaded 状态
-  if (this.data.loaded !== true && data.loading === false && currentData.mainData && currentData.mainData.code === 0) {
+  if (this.data.loaded !== true && data.loading === false && currentData.mainData) {
     data.loaded = true;
   }
 

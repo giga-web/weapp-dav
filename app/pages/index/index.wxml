@@ -6,6 +6,7 @@
     <view class="container">
       <view class="white-space">
         <button bind:tap="onTap" text="fadfssd" show="false">发送请求</button>
+        {{mainData.code}}
       </view>
     </view>
 
