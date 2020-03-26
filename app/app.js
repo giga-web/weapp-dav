@@ -5,6 +5,10 @@ import { localStorageV } from './utilities/base';
 import { KEY_USER_SETTING, USER_DEFAULT_SETTING } from "./constants/customer";
 /* 数据 */
 import { store, addAsyncModel } from "./libs/dva-giga/store.js";
+import model from "./pages/model.js";
+
+// 全局 model
+addAsyncModel(model);
 
 // 小程序接口 promis 化
 const wxp = {};

@@ -1,15 +1,30 @@
-const logsState = {};
+const globalState = {};
 
 export default {
-  namespace: "pages/logs",
+  namespace: "global",
 
-  state: logsState,
+  state: globalState,
 
-  effects: {},
+  effects: {
+    *rLogin({ payload, callback }, { call, put, select }) {
+      console.log('rLogin');
+      /*
+      const response = yield call(rGetRecommendList, payload);
+
+      if (response.code !== 0) {
+        yield put({ type: "save", payload: { error: response } });  
+      }
+      
+      yield put({ type: "save", payload: { entity: response } });
+      
+      */
+      callback && callback(false);
+    },
+  },
 
   reducers: {
     clean() {
-      return logsState;
+      return globalState;
     },
     save(state, { payload }) {
       return {

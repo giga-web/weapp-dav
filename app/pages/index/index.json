@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "layer-page-common": "/layer/page/common/index"
+    "layer-page-common": "/layer/page/common/index",
+    "van-skeleton": "@vant/weapp/skeleton"
   }
 }

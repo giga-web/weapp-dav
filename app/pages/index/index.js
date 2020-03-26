@@ -1,5 +1,4 @@
 import { connect } from "../../libs/dva-giga/connect.js";
-import { store } from "../../libs/dva-giga/store.js";
 import model from "./model.js";
 
 function initData () {
@@ -15,6 +14,7 @@ function initData () {
     }
   });
 
+  /*
   this.dispatch({
     type: `${model.namespace}/rMain`,
     payload: {
@@ -39,17 +39,20 @@ function initData () {
     }
   });
 
-  this.dispatch({
-    type: `${model.namespace}/rMain`,
-    payload: {
-      pageIndex: 0,
-      pageSize: 40,
-      city: "深圳市"
-    },
-    callback: () => {
-      // console.log(this.data);
-    }
-  });
+  setTimeout(() => {
+    this.dispatch({
+      type: `${model.namespace}/rMain`,
+      payload: {
+        pageIndex: 0,
+        pageSize: 40,
+        city: "深圳市"
+      },
+      callback: () => {
+        // console.log(this.data);
+      }
+    });
+  }, 3000)
+  */
 
   /*  
   this.dispatch({
@@ -65,7 +68,7 @@ function initData () {
     }
   });
   */
-
+  
   this.dispatch({
     type: `${model.namespace}/rGetOrder`,
     payload: {
@@ -84,6 +87,7 @@ Page(
     data: {},
 
     onReceiveProps(nextData) {
+      // console.log(this.data.loading);
       // console.log('onReceiveProps', nextData);
       /*
       const data = {};
@@ -98,8 +102,6 @@ Page(
     },
 
     onLoad(options) {
-      // wx.showNavigationBarLoading();
-
       /*
       wx.getUserInfo({
         withCredentials: true,

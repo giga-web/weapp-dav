@@ -10,6 +10,7 @@ export default {
   state: indexState,
 
   effects: {
+    /*
     // 废掉以前的请求，保留最新的请求，例如：搜索
     rMain: [
       function *rMainInternal({ payload, callback }, { call, put, select }) {
@@ -27,6 +28,38 @@ export default {
       },
       { type: 'takeLatest' }
     ],
+    // 每次都发送请求，并接收每次的结果
+    rMain: [
+      function *rMainInternal({ payload, callback }, { call, put, select }) {
+        const response = yield call(rGetProjectList, payload);
+
+        console.log(response);
+
+        if (response.code !== 0) {
+          yield put({ type: "save", payload: { error: response } });  
+        }
+        
+        yield put({ type: "save", payload: { entity: response } });
+        
+        callback && callback(response);
+      },
+      { type: 'takeEvery' }
+    ],
+    */
+    // 等待请求完成，才能再次发送请求，例如：表单提交
+    *rMain({ payload, callback }, { call, put, select }) {
+      const response = yield call(rGetProjectList, payload);
+
+      console.log(response);
+
+      if (response.code !== 0) {
+        yield put({ type: "save", payload: { error: response } });  
+      }
+      
+      yield put({ type: "save", payload: { entity: response } });
+      
+      callback && callback(response);
+    },
     *rGet({ payload, callback }, { call, put, select }) {
       const response = yield call(rGetRecommendList, payload);
 

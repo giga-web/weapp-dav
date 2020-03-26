@@ -2,10 +2,10 @@
 <layer-page-common loading="{{loading}}" error="{{error}}" actions="{{erroractions}}">
 
   <view slot="main">
-
+      
     <view class="container">
       <view class="white-space">
-        <button bind:tap="onTap">发送请求</button>
+        <button bind:tap="onTap" text="fadfssd" show="false">发送请求</button>
       </view>
     </view>
 

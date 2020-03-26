@@ -1,7 +1,7 @@
 // https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html [生命周期 2020-03-16]
+import { store } from "../../../libs/dva-giga/store.js";
 
-
-
+const { dispatch } = store;
 
 Component({
 
@@ -17,7 +17,9 @@ Component({
   /**
    * 组件的初始数据
    */
-  data: {},
+  data: {
+    show: true,
+  },
 
   lifetimes: {
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
@@ -58,15 +60,40 @@ Component({
         /*
         {
           "nickName":"皮宫庭",
-          "gender":1,"language":"zh_CN",
+          "gender":1,
+          "language":"zh_CN",
           "city":"深圳",
           "province":"广东",
           "country":"中国",
           "avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIpgFnCkkdFBeaIJpSHCSKWrkw0CdKtKUiaqVhztU5BMszTU5CMKw44Kyphic2k6pYUOgNEPvsaEAYA/132"
         }
         */
+        const callback = (status) => {
+          if (status === true) {
+            this.setData({ show: false });
+
+            const pages = getCurrentPages();
+            const page = pages[pages.length - 1];
+
+            page.onLoad();
+
+          } else {
+            this.setData({
+              error: {
+                code: -9999,
+                message: 'LoginFail',
+                data: '登录失败',
+              }
+            });
+          }
+        };
 
         // 注册
+        dispatch({
+          type: 'global/rLogin',
+          payload: {},
+          callback,
+        })
 
         return;
       }
@@ -77,16 +104,13 @@ Component({
 
     // 拒绝登录
     onRefuseLogin() {
-      // 返回
-      const pages = getCurrentPages();
-
-      // 只有一页时，不能返回
-      if (pages.length <= 1) {
-        // TODO: 返回首页，如果是首页则不跳转，按道理首页是不能出现需要登录才能访问
-        return;
-      }
-
-      wx.navigateBack();
+      this.setData({
+        error: {
+          code: -999,
+          message: 'LoginCancel',
+          data: '登录取消',
+        }
+      });
     },
   }
 });

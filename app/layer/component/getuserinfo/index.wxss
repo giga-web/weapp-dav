@@ -1,2 +1,8 @@
 /* components/error.wxss */
+.container {
+  padding: 30px;
+}
 
+.white-space {
+  padding: 10px;
+}

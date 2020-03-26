@@ -1,7 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "vant-loading": "@vant/weapp/loading",
+    "van-loading": "@vant/weapp/loading",
     "layer-component-error": "/layer/component/error/index",
     "layer-component-getuserinfo": "/layer/component/getuserinfo/index"
   }

@@ -19,13 +19,7 @@ function autoReceiveProps(namespace, state) {
     const loading = state.loading.effects[namespace + '/rMain'];
     if (this.data.loading !== loading) {
       data.loading = loading;
-
       // console.log(loading);
-      if (loading === true) {
-        wx.showNavigationBarLoading();
-      } else {
-        wx.hideNavigationBarLoading();
-      }
     }
   } catch (err) {
     console.log(err);
@@ -44,6 +38,16 @@ export const connect = model => {
 
       dispatch,
 
+      lifetimes: {
+        ...pageObject.lifetimes,
+
+        created() {
+          addAsyncModel(model);
+          this.setData(model.state);
+          pageObject.lifetimes.created.call(this, options);  
+        }
+      }
+      /*
       onLoad(options) {
         addAsyncModel(model);
         this.setData(model.state);
@@ -66,6 +70,7 @@ export const connect = model => {
         delete global.namespaces[model.namespace];
         pageObject.onHide.call(this);
       },
+      */
 
     };
   };

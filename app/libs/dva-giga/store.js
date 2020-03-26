@@ -27,6 +27,18 @@ const takeEvery = sagaEffects.takeEvery;
 const takeLatest = sagaEffects.takeLatest;
 const throttle = sagaEffects.throttle;
 
+const takeOldest = (pattern, saga, ...args) => sagaEffects.fork(function*() {
+  let lastTask
+  while (true) {
+    const action = yield sagaEffects.take(pattern)
+    if (lastTask) {
+      break;
+    }
+    lastTask = yield sagaEffects.call(saga, ...args.concat(action))
+    lastTask = undefined;
+  }
+});
+
 const { onEffect, extraReducers } = Loading();
 
 const NAMESPACE_SEP = '/';
@@ -125,7 +137,7 @@ const getSaga = function getSaga(model) {
 
 function getWatcher(key, Effect, model) {
   let effect = Effect;
-  let type = 'takeEvery';
+  let type = 'takeOldest';
   let ms;
 
   if (isArray(Effect)) {
@@ -157,13 +169,17 @@ function getWatcher(key, Effect, model) {
       return function*() {
         yield takeLatest(key, sagaWithOnEffect);
       };
+    case 'takeEvery':
+      return function*() {
+        yield takeEvery(key, sagaWithOnEffect);
+      };
     case 'throttle':
       return function*() {
         yield throttle(ms, key, sagaWithOnEffect);
       };
     default:
       return function*() {
-        yield takeEvery(key, sagaWithOnEffect);
+        yield takeOldest(key, sagaWithOnEffect);
       };
   }
 

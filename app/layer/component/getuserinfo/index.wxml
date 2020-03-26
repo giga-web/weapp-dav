@@ -1,13 +1,32 @@
 <view class="error-wrap">
   
-  <!-- 获取前 -->
-  <view>
-    <button bindtap="onRefuseLogin">拒绝登录</button>
-    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">一键登录</button>
-  </view>
+  <van-dialog use-slot show="{{show}}" show-confirm-button="{{false}}">
 
-  <!-- 允许 -->
+    <view class="container">
 
-  <!-- 拒绝 -->
+      <!-- 拒绝，再次获取用户信息 -->
+      <view wx:if="{{error && error.code === -999}}">
+        {{error.data}}
+        <view class="white-space" />
+        <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">一键登录</button>
+      </view>
+
+      <!-- 登录失败 -->
+      <view wx:elif="{{error && error.code === -9999}}">
+        {{error.data}}
+        <view class="white-space" />
+        <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">重新登录</button>
+      </view>
+
+      <!-- 获取用户信息 -->
+      <view wx:else>
+        <button bindtap="onRefuseLogin">暂不登录</button>
+        <view class="white-space" />
+        <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">一键登录</button>
+      </view>
+
+    </view>
+
+  </van-dialog>
 
 </view>
