@@ -68,7 +68,7 @@ function initData () {
     }
   });
   */
-  
+
   this.dispatch({
     type: `${model.namespace}/rGetOrder`,
     payload: {
@@ -87,7 +87,7 @@ Page(
     data: {},
 
     onReceiveProps(nextData) {
-      // console.log(this.data.loading);
+      // console.log(this.data);
       // console.log('onReceiveProps', nextData);
       /*
       const data = {};

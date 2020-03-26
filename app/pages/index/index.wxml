@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<layer-page-common loading="{{loading}}" error="{{error}}" actions="{{erroractions}}">
+<layer-page-common loaded="{{loaded}}" loading="{{loading}}" error="{{error}}" actions="{{erroractions}}">
 
   <view slot="main">
       

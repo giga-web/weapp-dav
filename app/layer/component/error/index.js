@@ -62,7 +62,7 @@ Component({
       const pages = getCurrentPages();
       const page = pages[pages.length - 1];
 
-      page.onLoad();
+      page.onShow();
     },
 
     // 返回

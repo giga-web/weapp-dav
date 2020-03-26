@@ -1,6 +1,6 @@
 <view>
   <!-- loading 应该在 error 上方，否则出错后刷新不会出现 loading -->
-  <view class="loading-box" wx:if="{{loading === true || loading === undefined}}">
+  <view class="loading-box" wx:if="{{(!!loaded === false) && (loading === true || loading === undefined)}}">
     <van-loading color="#1989fa" />
   </view>
 
@@ -8,5 +8,5 @@
 
   <layer-component-getuserinfo wx:elif="{{error && error.code === -9999}}" />
 
-  <slot name="main" wx:else></slot>
+  <slot name="main" wx:elif="{{!!loaded}}"></slot>
 </view>

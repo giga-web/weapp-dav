@@ -13,6 +13,10 @@ Component(
      * 组件的属性列表
      */
     properties: {
+      loaded: {
+        type: Boolean, // 类型
+        value: false // 默认值
+      },
       loading: {
         type: Boolean, // 类型
         value: false // 默认值

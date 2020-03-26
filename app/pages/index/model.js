@@ -56,7 +56,7 @@ export default {
         yield put({ type: "save", payload: { error: response } });  
       }
       
-      yield put({ type: "save", payload: { entity: response } });
+      yield put({ type: "save", payload: { mainData: response } });
       
       callback && callback(response);
     },

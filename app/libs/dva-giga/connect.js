@@ -31,6 +31,11 @@ function autoReceiveProps(namespace, state) {
     console.log(err);
   }
 
+  // 设置 loaded 状态
+  if (this.data.loaded !== true && data.loading === false && currentData.mainData && currentData.mainData.code === 0) {
+    data.loaded = true;
+  }
+
   this.setData(data);
 
   this.onReceiveProps && this.onReceiveProps(state);
