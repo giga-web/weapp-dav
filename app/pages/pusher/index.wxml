@@ -13,7 +13,21 @@
         bindstatechange="onPush">
       </live-pusher>
     </view>
-
+    <!-- 火箭效果 -->
+    <view class="white-space">
+      <image src="./assets/rocket.png" class="rocket-icon"  bindtap="onRocketTap"/>
+    </view>
+    <view animation="{{ani}}">
+      <image src="./assets/rocket.png" wx:if="{{ani}}" class="rocket-icon" />
+    </view>
+    <view animation="{{aniText}}" class="aniText">
+      <text style="color:#cd4450" wx:if="{{aniText}}">{{text}}</text>
+    </view>
+    <!-- 视频点赞 -->
+    <view class="white-space">
+      <image src="./assets/like.png" class="like-icon"  bindtap="onLikeTap"/>
+    </view>
+    <like-comp count="{{count}}"></like-comp>
   </view>
 
 </layer-page-common>

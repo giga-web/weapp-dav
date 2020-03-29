@@ -3,3 +3,23 @@
   width: 100vw;
   height: 100vh;
 }
+.like-icon {
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
+  width: 35px;
+  height: 35px;
+}
+.rocket-icon {
+  position: absolute;
+  right: 50%;
+  bottom: 25px;
+  width: 35px;
+  height: 35px;
+}
+
+.aniText {
+  position: absolute;
+  right: 50%;
+  bottom: 30px;
+}
